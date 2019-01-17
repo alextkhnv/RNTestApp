@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StackNavigator } from 'react-navigation';
 import SplashScreen from 'react-native-splash-screen';
+import RNFetchBlob from 'rn-fetch-blob';
 
 import { updateUser as updateUserAction } from '../actions';
 import PreUpdateUser from '../containers/PreUpdateUser';
@@ -25,10 +26,9 @@ class AppWithNavigationState extends Component {
     }
 
     componentWillMount() {
-        fetch('https://source.unsplash.com/random')
+        RNFetchBlob.fetch('GET', 'https://source.unsplash.com/random')
             .then(response => {
-                console.log(response);
-                this.props.updateUser({ logo: response.url });
+                this.props.updateUser({ logo: "data:image/jpg;base64," + response.base64() });
                 SplashScreen.hide();
             });
     }
