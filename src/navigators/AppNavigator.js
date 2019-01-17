@@ -28,7 +28,7 @@ class AppWithNavigationState extends Component {
     componentWillMount() {
         RNFetchBlob.fetch('GET', 'https://source.unsplash.com/random')
             .then(response => {
-                this.props.updateUser({ logo: "data:image/jpg;base64," + response.base64() });
+                this.props.updateUser({ logo: `data:image/jpg;base64,${response.base64()}` });
                 SplashScreen.hide();
             });
     }
